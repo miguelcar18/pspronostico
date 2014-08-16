@@ -9,16 +9,18 @@
         
         $linkPronostico="http://www.apuestas-deportivas.es/pronostico/";
         $fijo=fijo($linkPronostico);
-        preg_match_all('(<a href="http://www.apuestas-deportivas.es/pronostico/(.*)" rel="bookmark" title="(.*)">(.*)</a>)siU',$fijo, $link01);
-        $cantidadNoticias=count($link01);
-        
-        for($i=0; $i<=$cantidadNoticias; $i++)
+        preg_match_all('(<h2>(.*)</h2>)siU',$fijo, $matches);
+        $cantidadNoticias=count($matches);
+        for($i=0; $i<=9; $i++)
         {
-            $variable=$link01[1][$i];
-            echo 'Link '.$variable.'<br>';
+            $variable=$matches[1][$i];
+            $ejemplo=explode('html',$variable);
+            $extraerFinal=str_replace($ejemplo[1],'',$variable);
+            $extraerPrincipio=str_replace('<a href="http://www.apuestas-deportivas.es/pronostico/','',$extraerFinal);
+            $linkSolo=$extraerPrincipio;
+            echo $linkSolo.'<br>';
         }
-        
-        echo $cantidadNoticias;
+       
         ?>
     </body>
 </html>
